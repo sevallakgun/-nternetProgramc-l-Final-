@@ -1,0 +1,56 @@
+
+<app-navbar></app-navbar>
+
+
+<h2 class="text-center">Sistemdeki Kullanıcılar</h2>
+
+<div class="container">
+  <div class="row justify-content-md-center">
+    <div class="col-md-6">
+
+
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">İsim</th>
+            <th scope="col">E posta</th>
+            <th scope="col">Durumu</th>
+            <th class="text-center"  scope="col">İşlemler</th>
+          </tr>
+        </thead>
+        <tbody>
+          
+          <tr *ngFor="let user of kullanicilar "> 
+            <td>{{user.adsoyad}}</td>
+            <td>{{user.email}}</td>
+            <td>{{user.admin ? "Evet" : "Hayır"}}</td>
+            <td>
+              <div class="d-flex justify-content-center">
+                <button (click) = "kullanciyiGuncelle(user)" type="submit"  class="btn btn-dark"  > {{user.admin ? "Kullanıcı" : "Yönetici"}} olarak Ata</button>
+                <button (click) = "deleteUser(user.key)" type="submit" class="btn btn-danger ml-2"  >Kullanıcıyı Sil</button>
+
+
+              </div>
+
+            
+            </td>
+           
+      
+           
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+</div>
+
+
+
+
+
+
+
+
+  

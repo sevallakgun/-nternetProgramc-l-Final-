@@ -1,0 +1,185 @@
+
+<app-navbar></app-navbar>
+
+
+
+
+<div class="row ml-3 mt-4">
+    
+<button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModal">
+    Bölüm Yarat
+  </button>
+  
+</div>
+
+<h2 class="text-center">Soru-Cevap Bölümleri</h2>
+<div class="container">
+  <div class="row justify-content-md-center">
+    <div class="col-md-7">
+
+
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Bölüm Adı</th>
+            <th scope="col">Sorular</th>
+            <th  scope="col">İşlemler</th>
+          </tr>
+        </thead>
+        <tbody>
+          
+          <tr *ngFor="let section of bolumler | async "> 
+            <td>{{section.sectionName}}</td>
+
+            <td>
+              
+              <div *ngFor="let sorular of section.questions" class="d-flex flex-column">
+                <i>Name : {{sorular.questionName}}</i>
+                <i> A şıkkı : {{sorular.textA}}</i>
+                <i> B şıkkı:{{sorular.textB}}</i>
+                <i> C şıkkı :{{sorular.textC}}</i>
+                <i> D şıkkı :{{sorular.textD}}</i>
+                <i> DOĞRU CEVAP:{{sorular.correctAnswer}}</i>
+                <br/>
+                <br/>
+              </div>
+
+            </td>
+            <td>
+              <div class="d-flex justify-content-center">
+              
+                <button (click) = "bolumuKaldir(section.key)" type="submit" class="btn btn-danger ml-2"  >Bölümü kaldır</button>
+
+
+              </div>
+
+            
+            </td>
+           
+      
+           
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+</div>
+
+
+
+
+
+
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Bölüm Ekleme Alanı</h5>
+        
+        </div>
+        <div class="modal-body">
+       
+          <h4>Bölüm Soruları</h4>
+
+          <table class="table responsvie">
+            <thead>
+              <tr>
+                <th scope="col">Soru Açıklaması</th>
+                <th scope="col">A Şıkkı</th>
+                <th scope="col">B Şıkkı</th>
+                <th scope="col">C Şıkkı</th>
+                <th scope="col">D Şıkkı</th>
+                <th scope="col">Doğru Cevap</th>
+              
+                
+              </tr>
+            </thead>
+            <tbody>
+              
+              <tr *ngFor="let soru of questions "> 
+                <td>{{soru.questionName}}</td>
+                <td>{{soru.textA}}</td>
+                <td>{{soru.textB}}</td>
+                <td>{{soru.textC}}</td>
+                <td>{{soru.textD}}</td>
+                <td>{{soru.correctAnswer}}</td>
+               
+               
+          
+               
+              </tr>
+            </tbody>
+          </table>
+
+            <form>
+                <div class="form-group">
+                  <label>Bölüm ADI </label>
+                    <input  required name="" (change)='setSectionName(sectionName.value)' class="form-control" placeholder="bolum adı" type="text" #sectionName>
+                </div> 
+            
+                <div class="form-group">
+               
+                        <button (click) = "showQuestionArea(true)" class="btn btn-info btn-block"> Soru Ekle </button>
+                </div>
+
+                <div *ngIf="questionArea">
+                    <div class="form-group">
+                        <label>Soru Açıklaması</label>
+                          <input name=""  (change)='soruAci(questionName.value)' class="form-control" placeholder="soru açıklaması" type="text" #questionName>
+                      </div> 
+                      <div class="form-group">
+                        <label> Şık A  </label>
+                          <input name="" (change)='cevapA(textA.value)' class="form-control"  type="text" #textA>
+                      </div> 
+                    
+                      <div class="form-group">
+                        <label> Şık B  </label>
+                          <input name=""  (change)='cevapB(textB.value)' class="form-control"  type="text" #textB>
+                      </div>
+
+                      <div class="form-group">
+                        <label> Şık C  </label>
+                          <input name="" (change)='cevapC(textC.value)' class="form-control"  type="text" #textC>
+                      </div> 
+
+                      <div class="form-group">
+                        <label> Şık D  </label>
+                          <input (change)='cevapD(textD.value)' name="" class="form-control"  type="text" #textD>
+                      </div>  
+
+                      <div class="form-group">
+                        <label for="exampleFormControlSelect1">Doğru Cevabı Seç</label>
+                        <select 
+                        #correctAnswer
+                        (change)='setCorrectAnswer(correctAnswer.value)'
+                        class="form-control" id="exampleFormControlSelect1">
+                          <option>A</option>
+                          <option>B</option>
+                          <option>C</option>
+                          <option>D</option>
+                         
+                        </select>
+                      </div>
+                      <div class="form-group">
+                        <button (click) = "soruKayit()" class="btn btn-warning btn-block"> Soruyu Kaydet  </button>
+                    </div>       
+                  
+                </div>
+                                              
+            </form>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-info" data-dismiss="modal">Kapat</button>
+          <button (click) = "kaydet()" type="button" class="btn btn-primary" data-dismiss="modal" >Bölümü Kaydet </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  
